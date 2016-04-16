@@ -86,6 +86,24 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public void add(int index, E element) {
 		// TODO: fill this in
+		Node n = new Node(element);
+		if(index == 0) {
+			Node node = new Node(head.cargo);
+			node.next = head.next;
+			n.next = node;
+			head = n;
+		} else {		
+			Node node = head;
+			int count = 0;
+			while(count < index - 1) {
+				node = node.next;
+				count++;
+			}
+			Node temp = node.next;
+			node.next = n;
+			n.next = temp;
+		}
+		size++;
 	}
 
 	@Override
@@ -146,8 +164,17 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public int indexOf(Object target) {
-		// TODO: fill this in
-		return -1;
+		int count = 0;
+		Node n = head;
+		while(!equals(target, n.cargo) && count < size - 1) {
+			n = n.next;
+			count++;
+		}
+		if(count < size - 1 || equals(target, n.cargo)) {
+			return count;
+		} else {
+			return -1;
+		}
 	}
 
 	/** Checks whether an element of the array is the target.
@@ -202,13 +229,56 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public boolean remove(Object obj) {
 		// TODO: fill this in
+		Node n = head;
+		if(n.cargo.equals(obj)) {
+			head = head.next;
+			size--;
+			return true;
+		} else if(size == 1) {
+			return false;
+		} else {
+			Node m = head.next;
+			int count = 1;
+			while(!equals(obj, m.cargo) && count <= size) {
+				n = n.next;
+				m = m.next;
+				count++;
+			}
+			if(count < size) {
+				n.next = m.next;
+				size--;
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public E remove(int index) {
 		// TODO: fill this in
-		return null;
+		System.out.println("hello");
+		if(index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+		if(index == 0 && size == 1) {
+			E temp = head.cargo;
+			head = null;
+			size = 0;
+			return temp;
+		} else {
+			int count = 0;
+			Node n = head;
+			Node m = head.next;
+			while(count != index - 1) {
+				n = n.next;
+				m = m.next;
+				count++;
+			}
+			E temp = m.cargo;
+			n.next = m.next;
+			size--;
+			return temp;
+		}
 	}
 
 	@Override

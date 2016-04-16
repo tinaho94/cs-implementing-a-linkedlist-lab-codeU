@@ -9,6 +9,7 @@ import static org.junit.Assert.fail;
 import static org.hamcrest.CoreMatchers.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -115,10 +116,12 @@ public class MyLinkedListTest {
 	@Test
 	public void testContains() {
 		assertThat(mll.contains(1), equalTo(true));
+		System.out.println(Arrays.toString(mll.toArray()));
 		assertThat(mll.contains(4), equalTo(false));
 		assertThat(mll.contains(null), equalTo(false));
 		mll.add(null);
 		assertThat(mll.contains(null), equalTo(true));
+		System.out.println(Arrays.toString(mll.toArray()));
 	}
 
 	/**
@@ -155,6 +158,7 @@ public class MyLinkedListTest {
 	public void testIndexOfNull() {
 		assertThat(mll.indexOf(null), is(-1));
 		mll.add(null);
+		System.out.println(Arrays.toString(mll.toArray()));
 		assertThat(mll.indexOf(null), is(3));		
 	}
 
@@ -204,7 +208,7 @@ public class MyLinkedListTest {
 		assertThat(flag, equalTo(true));
 		assertThat(mll.size(), is(1));
 		assertThat(mll.get(0), is(new Integer(3)));
-		//System.out.println(Arrays.toString(mal.toArray()));
+		//System.out.println(Arrays.toString(mll.toArray()));
 		
 		flag = mll.remove(new Integer(5));
 		assertThat(flag, equalTo(false));
@@ -223,10 +227,12 @@ public class MyLinkedListTest {
 	 */
 	@Test
 	public void testRemoveInt() {
+		System.out.println(Arrays.toString(mll.toArray()));
 		Integer val = mll.remove(1);
 		assertThat(val, is(new Integer(2)));
 		assertThat(mll.size(), is(2));
 		assertThat(mll.get(1), is(new Integer(3)));
+		
 	}
 
 	/**
